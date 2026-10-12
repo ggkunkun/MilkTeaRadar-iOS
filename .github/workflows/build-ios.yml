@@ -1,0 +1,181 @@
+# ============================================================
+#  GitHub Actions —— 云端构建 iOS，产出 .ipa
+# ------------------------------------------------------------
+#  为什么用云端：iOS 只能在 macOS 上编译。这个 workflow 用
+#  GitHub 免费的 macOS 运行器，Windows 用户也能拿到 .ipa。
+#
+#  三种产出（前两种无需任何证书配置，必然产出）：
+#    1. MilkTeaRadar-simulator.zip   —— 模拟器可运行包
+#    2. MilkTeaRadar-unsigned.ipa    —— 未签名 ipa，用 Sideloadly /
+#                                       AltStore 配自己 Apple ID 重签后可装真机
+#    3. MilkTeaRadar-signed.ipa      —— 已签名 ipa（配了证书 Secrets 才产出）
+#
+#  使用：推到 GitHub → Actions → Build iOS App → Run workflow
+#       跑完在页面底部 Artifacts 下载
+# ============================================================
+
+name: Build iOS App
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'MilkTeaRadar/**'
+      - 'MilkTeaRadar.xcodeproj/**'
+      - '.github/workflows/build-ios.yml'
+
+jobs:
+  build:
+    runs-on: macos-14          # 自带 Xcode 15.x / iOS 17 SDK
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 显示环境
+        run: |
+          xcodebuild -version
+          echo "--- 可用 SDK ---"
+          xcodebuild -showsdks | grep -i "iphone" || true
+
+      # ---------- 1) 模拟器编译（验证代码正确性） ----------
+      - name: 编译模拟器版本
+        run: |
+          xcodebuild \
+            -project MilkTeaRadar.xcodeproj \
+            -scheme MilkTeaRadar \
+            -configuration Release \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            -derivedDataPath build/dd-sim \
+            build
+
+      - name: 打包模拟器产物
+        run: |
+          cd build/dd-sim/Build/Products/Release-iphonesimulator
+          zip -r "$GITHUB_WORKSPACE/MilkTeaRadar-simulator.zip" MilkTeaRadar.app
+          ls -la "$GITHUB_WORKSPACE/MilkTeaRadar-simulator.zip"
+
+      # ---------- 2) 真机架构编译 + 打未签名 ipa（无需证书） ----------
+      - name: 编译真机版本（免签名）
+        run: |
+          xcodebuild \
+            -project MilkTeaRadar.xcodeproj \
+            -scheme MilkTeaRadar \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            EXPANDED_CODE_SIGN_IDENTITY="" \
+            -derivedDataPath build/dd-device \
+            build
+
+      - name: 打包未签名 ipa
+        run: |
+          cd build/dd-device/Build/Products/Release-iphoneos
+          echo "--- 编译产物 ---"
+          ls -la
+          mkdir -p Payload
+          cp -R MilkTeaRadar.app Payload/
+          # ipa 的本质就是含 Payload/ 目录的 zip
+          zip -qry "$GITHUB_WORKSPACE/MilkTeaRadar-unsigned.ipa" Payload
+          ls -la "$GITHUB_WORKSPACE/MilkTeaRadar-unsigned.ipa"
+
+      # ---------- 3) 有证书时：签名归档 + 导出正式 ipa ----------
+      - name: 安装证书与描述文件
+        if: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
+        env:
+          HAS_CERT: 'true'
+        run: |
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          echo -n "${{ secrets.BUILD_CERTIFICATE_BASE64 }}" | base64 --decode -o $CERTIFICATE_PATH
+          echo -n "${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}" | base64 --decode -o $PP_PATH
+
+          security create-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" $KEYCHAIN_PATH
+          security import $CERTIFICATE_PATH -P "${{ secrets.P12_PASSWORD }}" \
+            -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: \
+            -k "${{ secrets.KEYCHAIN_PASSWORD }}" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+      - name: 归档并导出已签名 ipa
+        if: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
+        env:
+          HAS_CERT: 'true'
+        run: |
+          xcodebuild \
+            -project MilkTeaRadar.xcodeproj \
+            -scheme MilkTeaRadar \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/MilkTeaRadar.xcarchive \
+            archive
+
+          cat > build/ExportOptions.plist <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>development</string>
+    <key>compileBitcode</key>
+    <false/>
+    <key>signingStyle</key>
+    <string>automatic</string>
+</dict>
+</plist>
+EOF
+
+          xcodebuild -exportArchive \
+            -archivePath build/MilkTeaRadar.xcarchive \
+            -exportPath build/ipa \
+            -exportOptionsPlist build/ExportOptions.plist
+
+      # ---------- 上传产物 ----------
+      - name: 上传模拟器包
+        uses: actions/upload-artifact@v4
+        with:
+          name: MilkTeaRadar-simulator
+          path: MilkTeaRadar-simulator.zip
+          if-no-files-found: warn
+
+      - name: 上传未签名 ipa
+        uses: actions/upload-artifact@v4
+        with:
+          name: MilkTeaRadar-unsigned-ipa
+          path: MilkTeaRadar-unsigned.ipa
+          if-no-files-found: warn
+
+      - name: 上传已签名 ipa
+        if: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: MilkTeaRadar-signed-ipa
+          path: build/ipa/*.ipa
+          if-no-files-found: warn
+
+      - name: 构建摘要
+        if: always()
+        run: |
+          echo "## 构建结果" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| 产物 | 说明 |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| MilkTeaRadar-simulator.zip | 模拟器可运行包 |" >> $GITHUB_STEP_SUMMARY
+          echo "| MilkTeaRadar-unsigned.ipa | 未签名 ipa，可用 Sideloadly 重签安装 |" >> $GITHUB_STEP_SUMMARY
+
+      - name: 清理钥匙串
+        if: always()
+        run: security delete-keychain $RUNNER_TEMP/app-signing.keychain-db || true

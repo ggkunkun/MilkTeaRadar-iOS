@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- ===== 服务端配置（按环境在 .xcconfig 中覆盖） ===== -->
+    <key>API_BASE_URL</key>
+    <string>$(API_BASE_URL)</string>
+    <key>REALTIME_URL</key>
+    <string>$(REALTIME_URL)</string>
+
+    <!-- ===== PWA 无关，原生端权限 ===== -->
+
+    <!-- 本地通知：活动截止提醒 -->
+    <key>NSUserNotificationUsageDescription</key>
+    <string>用于在优惠活动截止当天提醒你，避免错过优惠</string>
+
+    <!-- ===== 后台模式 ===== -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <!-- 后台拉取：App 未打开时也能补偿刷新（配合 BGTaskScheduler） -->
+        <string>fetch</string>
+        <!-- 远程推送（可选，服务端变更量大时用于唤醒客户端） -->
+        <string>remote-notification</string>
+    </array>
+
+    <!-- ===== App Transport Security ===== -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <!-- 生产环境请保持 false，只允许 HTTPS -->
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+        <!-- 若本地调试用自签证书，放开下面两项（不要进生产） -->
+        <!-- <key>NSAllowsLocalNetworking</key><true/> -->
+    </dict>
+
+    <key>UILaunchScreen</key>
+    <dict>
+        <key>UIColorName</key>
+        <string>LaunchBackground</string>
+    </dict>
+
+    <key>CFBundleDisplayName</key>
+    <string>奶茶优惠雷达</string>
+</dict>
+</plist>

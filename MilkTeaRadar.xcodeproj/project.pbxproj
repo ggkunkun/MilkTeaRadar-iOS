@@ -1,0 +1,368 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		38A6588FA43B47088E3CBCA6 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B096B5F31B354D56BB9C0AD5 /* Config.swift */; };
+		1BBA9A7833D647E198EFC53D /* DealRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78BC63499AD4EC68C0308AF /* DealRepository.swift */; };
+		2F071D09DA784D5D95D44D92 /* Deal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259CC23E5C56483BB235394F /* Deal.swift */; };
+		719FFD5C5FC94B6C85AD7A99 /* DealsDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD05C191D654935A2BCD7BB /* DealsDocument.swift */; };
+		70E93FD09ADA4869B8B46A23 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6689013DBFD4355937E09F5 /* APIClient.swift */; };
+		1F1208A8751F44F788233C7C /* RealtimeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F43585B3543A592568E25 /* RealtimeClient.swift */; };
+		40D5D0850FFB4B3C8FFBA2BD /* DealCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2A4BC35B84D349AA15D42 /* DealCache.swift */; };
+		53C101F48DBA40EEBF3D3404 /* ReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DCC3AFD21B456DAE0B7044 /* ReminderStore.swift */; };
+		C7B7EBFA62F04875BBA9DF47 /* DealCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B43DF1A6904303AC129DCF /* DealCard.swift */; };
+		A9E4A9F666B645B989239C53 /* DealDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0304B8E8B24F24BB6A294C /* DealDetailView.swift */; };
+		158659A2115D4964A700DF04 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BDAC2100047C6A1AC5E08 /* Components.swift */; };
+		F3023FA11AB0422C8C62EC5C /* DealListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D93A42E86D4AA4828588C9 /* DealListView.swift */; };
+		372D8E13D7574F82B8745E86 /* DealListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054CD52BA5144C248237C3AA /* DealListViewModel.swift */; };
+		177646A6D4434497A8746869 /* MilkTeaRadarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B0A3BB7588495BB6A3E8EB /* MilkTeaRadarApp.swift */; };
+		1BC766F9A0C44AD19A2AE4B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9F02C242AA64D08B80DFC17 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		741EA6CEBCA247CF98132377 /* MilkTeaRadar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MilkTeaRadar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6689013DBFD4355937E09F5 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient.swift"; sourceTree = "<group>"; };
+		D9F02C242AA64D08B80DFC17 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
+		1F8BDAC2100047C6A1AC5E08 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components.swift"; sourceTree = "<group>"; };
+		B096B5F31B354D56BB9C0AD5 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Config.swift"; sourceTree = "<group>"; };
+		259CC23E5C56483BB235394F /* Deal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Deal.swift"; sourceTree = "<group>"; };
+		DAB2A4BC35B84D349AA15D42 /* DealCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DealCache.swift"; sourceTree = "<group>"; };
+		62B43DF1A6904303AC129DCF /* DealCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DealCard.swift"; sourceTree = "<group>"; };
+		8F0304B8E8B24F24BB6A294C /* DealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DealDetailView.swift"; sourceTree = "<group>"; };
+		70D93A42E86D4AA4828588C9 /* DealListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DealListView.swift"; sourceTree = "<group>"; };
+		054CD52BA5144C248237C3AA /* DealListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DealListViewModel.swift"; sourceTree = "<group>"; };
+		D78BC63499AD4EC68C0308AF /* DealRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DealRepository.swift"; sourceTree = "<group>"; };
+		4DD05C191D654935A2BCD7BB /* DealsDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DealsDocument.swift"; sourceTree = "<group>"; };
+		1205C794688F4405AF56BA79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
+		82B0A3BB7588495BB6A3E8EB /* MilkTeaRadarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MilkTeaRadarApp.swift"; sourceTree = "<group>"; };
+		AF9F43585B3543A592568E25 /* RealtimeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealtimeClient.swift"; sourceTree = "<group>"; };
+		18DCC3AFD21B456DAE0B7044 /* ReminderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderStore.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FEB73E871846495F8A03042F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		448C3B053A634DCDACD74B7D = {
+			isa = PBXGroup;
+			children = (
+				717C1436BD6547F785D96EE4 /* MilkTeaRadar */,
+				FF538F10CC6945C082E7DD2A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FF538F10CC6945C082E7DD2A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				741EA6CEBCA247CF98132377 /* MilkTeaRadar.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		717C1436BD6547F785D96EE4 /* MilkTeaRadar */ = {
+			isa = PBXGroup;
+			children = (
+				2685AF546E8B4C97BEC1C776 /* Core */,
+				529FC402A14148D2876EC780 /* Features */,
+				82B0A3BB7588495BB6A3E8EB /* MilkTeaRadarApp.swift */,
+			);
+			path = MilkTeaRadar;
+			sourceTree = "<group>";
+		};
+		2685AF546E8B4C97BEC1C776 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				317F6C04E97F44F9873A2CCB /* Data */,
+				D9834D2D23E34033BDA41540 /* Models */,
+				FC904E50747145B0BB018847 /* Networking */,
+				CE452576B7894AB99C6AE533 /* Storage */,
+				B096B5F31B354D56BB9C0AD5 /* Config.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		529FC402A14148D2876EC780 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				5C5F4703D3A841A18CB3B4D2 /* Components */,
+				8BC12CFAF1D34E6ABCD43B43 /* DealDetail */,
+				7663807D13064745A9121150 /* DealList */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		317F6C04E97F44F9873A2CCB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D78BC63499AD4EC68C0308AF /* DealRepository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D9834D2D23E34033BDA41540 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				259CC23E5C56483BB235394F /* Deal.swift */,
+				4DD05C191D654935A2BCD7BB /* DealsDocument.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE452576B7894AB99C6AE533 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				DAB2A4BC35B84D349AA15D42 /* DealCache.swift */,
+				18DCC3AFD21B456DAE0B7044 /* ReminderStore.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		FC904E50747145B0BB018847 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E6689013DBFD4355937E09F5 /* APIClient.swift */,
+				AF9F43585B3543A592568E25 /* RealtimeClient.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		7663807D13064745A9121150 /* DealList */ = {
+			isa = PBXGroup;
+			children = (
+				1F8BDAC2100047C6A1AC5E08 /* Components.swift */,
+				70D93A42E86D4AA4828588C9 /* DealListView.swift */,
+				054CD52BA5144C248237C3AA /* DealListViewModel.swift */,
+			);
+			path = DealList;
+			sourceTree = "<group>";
+		};
+		5C5F4703D3A841A18CB3B4D2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				62B43DF1A6904303AC129DCF /* DealCard.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		8BC12CFAF1D34E6ABCD43B43 /* DealDetail */ = {
+			isa = PBXGroup;
+			children = (
+				8F0304B8E8B24F24BB6A294C /* DealDetailView.swift */,
+			);
+			path = DealDetail;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0BA5220BBF6C40029066C7FB /* MilkTeaRadar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7C5A6A4E012346E6AE7AC578 /* Build configuration list for PBXNativeTarget "MilkTeaRadar" */;
+			buildPhases = (
+				16F6E635A4F840B7B1BBE16D /* Sources */,
+				FEB73E871846495F8A03042F /* Frameworks */,
+				08320CE866784977853D5D49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MilkTeaRadar;
+			productName = MilkTeaRadar;
+			productReference = 741EA6CEBCA247CF98132377 /* MilkTeaRadar.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC15E6E7A76B46EAA9D803BC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					0BA5220BBF6C40029066C7FB = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 520F0E5AE9C14541823CE236 /* Build configuration list for PBXProject "MilkTeaRadar" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 448C3B053A634DCDACD74B7D;
+			productRefGroup = FF538F10CC6945C082E7DD2A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0BA5220BBF6C40029066C7FB /* MilkTeaRadar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		08320CE866784977853D5D49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BC766F9A0C44AD19A2AE4B6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		16F6E635A4F840B7B1BBE16D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38A6588FA43B47088E3CBCA6 /* Config.swift in Sources */,
+				1BBA9A7833D647E198EFC53D /* DealRepository.swift in Sources */,
+				2F071D09DA784D5D95D44D92 /* Deal.swift in Sources */,
+				719FFD5C5FC94B6C85AD7A99 /* DealsDocument.swift in Sources */,
+				70E93FD09ADA4869B8B46A23 /* APIClient.swift in Sources */,
+				1F1208A8751F44F788233C7C /* RealtimeClient.swift in Sources */,
+				40D5D0850FFB4B3C8FFBA2BD /* DealCache.swift in Sources */,
+				53C101F48DBA40EEBF3D3404 /* ReminderStore.swift in Sources */,
+				C7B7EBFA62F04875BBA9DF47 /* DealCard.swift in Sources */,
+				A9E4A9F666B645B989239C53 /* DealDetailView.swift in Sources */,
+				158659A2115D4964A700DF04 /* Components.swift in Sources */,
+				F3023FA11AB0422C8C62EC5C /* DealListView.swift in Sources */,
+				372D8E13D7574F82B8745E86 /* DealListViewModel.swift in Sources */,
+				177646A6D4434497A8746869 /* MilkTeaRadarApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C6310EA272554794B3212FDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		263D2C30E5D7479D8E89DFC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5960600E1F9C460DB75B25D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				API_BASE_URL = "https://milk-tea-radar.app.workbuddy.host";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "MilkTeaRadar/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.milktearadar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REALTIME_URL = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		D9FCA0A202844CDFAE5D2168 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				API_BASE_URL = "https://milk-tea-radar.app.workbuddy.host";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "MilkTeaRadar/Resources/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.milktearadar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REALTIME_URL = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		520F0E5AE9C14541823CE236 /* Build configuration list for PBXProject "MilkTeaRadar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6310EA272554794B3212FDE /* Debug */,
+				263D2C30E5D7479D8E89DFC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7C5A6A4E012346E6AE7AC578 /* Build configuration list for PBXNativeTarget "MilkTeaRadar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5960600E1F9C460DB75B25D5 /* Debug */,
+				D9FCA0A202844CDFAE5D2168 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BC15E6E7A76B46EAA9D803BC /* Project object */;
+}
