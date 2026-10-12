@@ -1,0 +1,19 @@
+# 默认按文本处理，自动识别
+* text=auto
+
+# Shell 脚本必须保持 LF，否则 macOS 上会报 "bad interpreter: ^M"
+*.sh          text eol=lf
+*.command     text eol=lf
+
+# CI 与工程文件统一 LF
+*.yml         text eol=lf
+*.yaml        text eol=lf
+*.pbxproj     text eol=lf
+*.xcscheme    text eol=lf
+*.swift       text eol=lf
+*.plist       text eol=lf
+
+# 二进制资源不要动
+*.png         binary
+*.jpg         binary
+*.ipa         binary
