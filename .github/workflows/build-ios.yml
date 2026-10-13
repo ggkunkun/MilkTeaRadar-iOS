@@ -28,6 +28,8 @@ on:
 jobs:
   build:
     runs-on: macos-14          # 自带 Xcode 15.x / iOS 17 SDK
+    env:
+      HAS_CERT: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
 
     steps:
       - name: 检出代码
@@ -87,9 +89,7 @@ jobs:
 
       # ---------- 3) 有证书时：签名归档 + 导出正式 ipa ----------
       - name: 安装证书与描述文件
-        if: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
-        env:
-          HAS_CERT: 'true'
+        if: env.HAS_CERT == 'true'
         run: |
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
           PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
@@ -111,9 +111,7 @@ jobs:
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: 归档并导出已签名 ipa
-        if: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
-        env:
-          HAS_CERT: 'true'
+        if: env.HAS_CERT == 'true'
         run: |
           xcodebuild \
             -project MilkTeaRadar.xcodeproj \
@@ -158,7 +156,7 @@ jobs:
           if-no-files-found: warn
 
       - name: 上传已签名 ipa
-        if: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
+        if: env.HAS_CERT == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: MilkTeaRadar-signed-ipa
