@@ -78,12 +78,25 @@ actor APIClient {
     /// - Returns: DealsDocument
     /// - Throws: NetworkError
     func fetchDeals() async throws -> DealsDocument {
+        guard let url = URL(string: Config.apiBaseURL + Config.dealsPath) else {
+            throw NetworkError.invalidURL
+        }
+        return try await fetchDeals(from: url)
+    }
+
+    /// 从指定地址拉取（供多源数据链使用，可指向主源或任意镜像）
+    /// - Parameter base: 数据源的完整 URL
+    func fetchDeals(from base: URL) async throws -> DealsDocument {
         var lastError: NetworkError = .invalidURL
 
         for attempt in 0...Config.maxRetries {
             do {
-                var comps = URLComponents(string: Config.apiBaseURL + Config.dealsPath)
-                comps?.queryItems = [URLQueryItem(name: "t", value: String(Int(Date().timeIntervalSince1970 * 1000)))]
+                var comps = URLComponents(url: base, resolvingAgainstBaseURL: false)
+                // 加时间戳绕开中间层缓存，确保拿到最新数据
+                var items = comps?.queryItems ?? []
+                items.append(URLQueryItem(name: "t",
+                                          value: String(Int(Date().timeIntervalSince1970 * 1000))))
+                comps?.queryItems = items
                 guard let url = comps?.url else { throw NetworkError.invalidURL }
 
                 var req = URLRequest(url: url)
@@ -112,7 +125,6 @@ actor APIClient {
                 }
                 throw e
             } catch {
-                // URLSession 抛出的 URLError
                 let mapped = NetworkError.map(error)
                 lastError = mapped
                 if !mapped.isRetryable { throw mapped }

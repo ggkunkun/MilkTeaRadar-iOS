@@ -5,7 +5,7 @@
          <BuildActionEntry buildForTesting = "YES" buildForRunning = "YES" buildForProfiling = "YES" buildForArchiving = "YES" buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0BA5220BBF6C40029066C7FB"
+               BlueprintIdentifier = "16F9431BEAB249C0B8B15FDF"
                BuildableName = "MilkTeaRadar.app"
                BlueprintName = "MilkTeaRadar"
                ReferencedContainer = "container:MilkTeaRadar.xcodeproj">
@@ -20,7 +20,7 @@
       <BuildableProductRunnable runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0BA5220BBF6C40029066C7FB"
+            BlueprintIdentifier = "16F9431BEAB249C0B8B15FDF"
             BuildableName = "MilkTeaRadar.app"
             BlueprintName = "MilkTeaRadar"
             ReferencedContainer = "container:MilkTeaRadar.xcodeproj">
@@ -31,7 +31,7 @@
       <BuildableProductRunnable runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0BA5220BBF6C40029066C7FB"
+            BlueprintIdentifier = "16F9431BEAB249C0B8B15FDF"
             BuildableName = "MilkTeaRadar.app"
             BlueprintName = "MilkTeaRadar"
             ReferencedContainer = "container:MilkTeaRadar.xcodeproj">

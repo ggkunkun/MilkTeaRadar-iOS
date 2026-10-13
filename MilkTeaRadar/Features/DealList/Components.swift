@@ -49,6 +49,79 @@ extension View {
     func shimmer() -> some View { modifier(Shimmer()) }
 }
 
+// MARK: - 本地 AI 洞察区
+//
+// 这些结论全部由 LocalIntelligence 在设备本地生成，
+// 不调用任何云端接口 —— 因此服务器关闭、断网时依然可用。
+
+struct InsightSection: View {
+    let insights: [Insight]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("🧠 本地智能")
+                    .font(.title3.weight(.bold))
+                Spacer()
+                Text("设备端实时分析 · 无需联网")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(Array(insights.enumerated()), id: \.offset) { _, ins in
+                        InsightCard(insight: ins)
+                    }
+                }
+                .padding(.vertical, 2)
+            }
+        }
+    }
+}
+
+struct InsightCard: View {
+    let insight: Insight
+
+    private var tint: Color {
+        switch insight.kind {
+        case .topPick:     return .orange
+        case .endingSoon:  return .red
+        case .startingNow: return .green
+        case .weekend:     return .blue
+        case .streak:      return .purple
+        }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            HStack(spacing: 6) {
+                Image(systemName: insight.icon)
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(tint)
+                Spacer()
+            }
+            Text(insight.title)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.primary)
+                .lineLimit(2)
+            Text(insight.detail)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .lineLimit(3)
+            Spacer(minLength: 0)
+        }
+        .padding(13)
+        .frame(width: 236, height: 132, alignment: .leading)
+        .background(tint.opacity(0.09))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(tint.opacity(0.18), lineWidth: 1)
+        )
+    }
+}
+
 // MARK: - 今日必看
 
 struct HeroSection: View {

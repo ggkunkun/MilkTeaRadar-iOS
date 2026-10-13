@@ -36,6 +36,27 @@ enum Config {
     /// SSE 长连接地址。留空则自动降级为轮询（静态托管无 SSE 端点）。
     static let realtimeURL = value("REALTIME_URL", fallback: "")
 
+    // MARK: - 镜像源（云端主源不可用时的替补）
+    //
+    // 这些是「不同域名、不同 CDN、不同运营方」的副本，
+    // 因此单点故障不会同时击穿。DataSourceChain 会依次尝试：
+    //   主源 → 镜像 1 → 镜像 2 → ... → 本地缓存 → 内置快照
+    //
+    // 配置方式：在 Info.plist 里加 MIRROR_URLS（数组），或用逗号分隔的字符串。
+    // 留空则只使用主源（仍会自动降级到本地缓存与内置快照）。
+    static let mirrorURLs: [String] = {
+        if let arr = Bundle.main.object(forInfoDictionaryKey: "MIRROR_URLS") as? [String],
+           !arr.isEmpty {
+            return arr
+        }
+        if let s = Bundle.main.object(forInfoDictionaryKey: "MIRROR_URLS") as? String {
+            return s.split(separator: ",")
+                .map { $0.trimmingCharacters(in: .whitespaces) }
+                .filter { !$0.isEmpty }
+        }
+        return []
+    }()
+
     // MARK: - 网络策略
 
     /// 单次请求超时（秒）——题目要求默认 8 秒

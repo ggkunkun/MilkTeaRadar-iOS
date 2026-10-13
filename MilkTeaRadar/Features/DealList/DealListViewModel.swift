@@ -45,6 +45,11 @@ final class DealListViewModel: ObservableObject {
     @Published private(set) var reminderSet: Set<String> = []
     @Published var selectedDeal: Deal? = nil
 
+    /// 本地 AI 洞察（离线可用）
+    @Published private(set) var insights: [Insight] = []
+    /// 多源链当前尝试的源（诊断用）
+    @Published private(set) var attemptLog: String = ""
+
     private let repo: DealRepository
 
     init(repo: DealRepository = DealRepository()) {
@@ -146,10 +151,13 @@ final class DealListViewModel: ObservableObject {
     private func syncFromRepo() {
         source = repo.source
         reminderSet = repo.reminders.ids
+        insights = repo.insights
+        attemptLog = repo.attemptLog
         if let t = repo.lastSyncAt {
             lastSyncText = t.relativeText
         }
-        if let e = repo.lastError {
+        if let e = repo.lastError, repo.deals.isEmpty {
+            // 只有「一条数据都没有」才算错误；有数据(哪怕是内置快照)就不该报错
             errorMessage = e.localizedDescription
             recoveryHint = e.recoveryHint
         } else {

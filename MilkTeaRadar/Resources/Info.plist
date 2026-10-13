@@ -41,5 +41,15 @@
 
     <key>CFBundleDisplayName</key>
     <string>奶茶优惠雷达</string>
+    <!-- ===== 镜像源（云端主源不可用时的替补） =====
+         填多个不同域名 / 不同 CDN 的同一份数据副本。
+         DataSourceChain 会依次尝试：主源 → 镜像 → 本地缓存 → 内置快照。
+         留空则只使用主源（仍会自动降级到缓存与内置数据）。
+    <key>MIRROR_URLS</key>
+    <array>
+        <string>https://cdn.jsdelivr.net/gh/你的用户名/你的仓库@main/data/deals.json</string>
+        <string>https://raw.githubusercontent.com/你的用户名/你的仓库/main/data/deals.json</string>
+    </array>
+    -->
 </dict>
 </plist>

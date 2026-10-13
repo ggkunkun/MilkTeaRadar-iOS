@@ -70,6 +70,10 @@ struct DealListView: View {
                         viewModel.resetFilters()
                     }
                 } else {
+                    // 本地 AI 洞察（离线可用，不依赖云端推理）
+                    if !viewModel.insights.isEmpty {
+                        InsightSection(insights: viewModel.insights)
+                    }
                     HeroSection(deals: viewModel.highlights) { deal in
                         viewModel.selectedDeal = deal
                     }
