@@ -13,7 +13,7 @@ struct DealListView: View {
 
     @StateObject private var viewModel: DealListViewModel
 
-    @MainActor init(repository: DealRepository = DealRepository()) {
+    @MainActor init(repository: DealRepository) {
         _viewModel = StateObject(wrappedValue: DealListViewModel(repo: repository))
     }
 

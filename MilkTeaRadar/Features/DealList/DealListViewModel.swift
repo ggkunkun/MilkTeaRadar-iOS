@@ -52,7 +52,7 @@ final class DealListViewModel: ObservableObject {
 
     private let repo: DealRepository
 
-    init(repo: DealRepository = DealRepository()) {
+    init(repo: DealRepository) {
         self.repo = repo
     }
 
