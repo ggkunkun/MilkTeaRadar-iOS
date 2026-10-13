@@ -13,7 +13,7 @@ struct DealListView: View {
 
     @StateObject private var viewModel: DealListViewModel
 
-    init(repository: DealRepository = DealRepository()) {
+    @MainActor init(repository: DealRepository = DealRepository()) {
         _viewModel = StateObject(wrappedValue: DealListViewModel(repo: repository))
     }
 
@@ -80,8 +80,8 @@ struct DealListView: View {
                     FilterChipsView(
                         status: $viewModel.status,
                         brand: $viewModel.brand,
-                        brands: viewModel.brands,
                         keyword: $viewModel.keyword,
+                        brands: viewModel.brands,
                         countFor: { viewModel.count(for: $0) }
                     )
                     DealGridView(deals: viewModel.visibleDeals,
@@ -140,27 +140,33 @@ struct StatusBanner: View {
     private var iconName: String {
         if errorMessage != nil { return "exclamationmark.triangle.fill" }
         switch source {
-        case .live:        return "checkmark.circle.fill"
-        case .cache:       return "clock.fill"
-        case .offline:     return "wifi.slash"
+        case .live:              return "checkmark.circle.fill"
+        case .mirror:            return "arrow.triangle.2.circlepath.circle.fill"
+        case .cache:             return "clock.fill"
+        case .bundled:           return "archivebox.fill"
+        case .offline:           return "wifi.slash"
         }
     }
 
     private var tint: Color {
         if errorMessage != nil { return .orange }
         switch source {
-        case .live:    return .green
-        case .cache:   return .blue
-        case .offline: return .secondary
+        case .live:              return .green
+        case .mirror:            return .teal
+        case .cache:             return .blue
+        case .bundled:           return .indigo
+        case .offline:           return .secondary
         }
     }
 
     private var titleText: String {
         if let e = errorMessage { return e }
         switch source {
-        case .live:    return "实时数据"
-        case .cache(let age): return "本地缓存 · \(age)"
-        case .offline: return "离线模式"
+        case .live:              return "实时数据"
+        case .mirror(let h):     return "镜像源 · \(h)"
+        case .cache(let age):    return "本地缓存 · \(age)"
+        case .bundled:           return "内置快照"
+        case .offline:           return "离线模式"
         }
     }
 

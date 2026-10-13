@@ -50,7 +50,7 @@ struct Deal: Identifiable, Codable, Hashable {
 
 // MARK: - 有效期
 
-enum DealValidity {
+enum DealValidity: Equatable {
     case expired
     case today
     case soon(days: Int)

@@ -37,11 +37,12 @@ struct Shimmer: ViewModifier {
                     startPoint: .init(x: phase - 0.3, y: 0.5),
                     endPoint: .init(x: phase + 0.3, y: 0.5)
                 )
-            .onAppear {
-                withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) {
-                    phase = 1.3
+                .onAppear {
+                    withAnimation(.linear(duration: 1.2).repeatForever(autoreverses: false)) {
+                        phase = 1.3
+                    }
                 }
-            }
+            )
     }
 }
 

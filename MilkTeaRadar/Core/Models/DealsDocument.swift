@@ -22,6 +22,15 @@ struct DealsDocument: Codable {
         case digestFile = "digest_file"
     }
 
+    init(app: String?, generatedAt: String?, digestFile: String?, source: String?, version: Int, deals: [Deal]) {
+        self.app = app
+        self.generatedAt = generatedAt
+        self.digestFile = digestFile
+        self.source = source
+        self.version = version
+        self.deals = deals
+    }
+
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         app         = try c.decodeIfPresent(String.self, forKey: .app)
